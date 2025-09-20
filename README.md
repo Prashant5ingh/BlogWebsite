@@ -32,6 +32,8 @@ A modern, responsive blog platform built with React and Vite. This project demon
 - Tailwind CSS
 - Redux Toolkit
 - Appwrite
+- React-Hook-Form
+- Tinymce-Editor
 - React Router
 
 ## Configure environment variables:
