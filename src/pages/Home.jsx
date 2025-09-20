@@ -49,7 +49,7 @@ function Home() {
                                     <div className="bg-white rounded-2xl shadow-md p-4 flex justify-center border border-blue-300 hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out">
                                         <img src="https://img.icons8.com/?size=100&id=cjsh58euBD9i&format=png&color=000000" alt="Post" className="rounded-4xl w-30 h-30" />
                                         <div className='block'>
-                                            <h3 className="text-xl font-bold mb-2">Post Title</h3>
+                                            <h3 className="text-xl font-bold mb-2">Post h Title</h3>
                                             <p className="text-gray-700 mb-4">Short description of the blog post goes here. Catch the reader's attention!</p>
                                             <Link to="/login" className="text-blue-600 hover:underline font-semibold">Login to Read More</Link>
                                         </div>
