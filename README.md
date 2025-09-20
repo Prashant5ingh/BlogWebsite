@@ -15,32 +15,31 @@ If you are developing a production application, we recommend using TypeScript wi
 
 A modern, responsive blog platform built with React and Vite. This project demonstrates authentication, CRUD operations for posts, and a clean UI using Tailwind CSS. It uses Appwrite for backend services (authentication, database, storage) and Redux Toolkit for state management.
 
-# Features
+## Features
 
-Features
-User authentication (signup, login, logout)
-Create, edit, delete, and view blog posts
-Responsive design with Tailwind CSS
-Rich text editor for posts
-Protected routes for authenticated users
-Post listing and individual post pages
-State management with Redux Toolkit
-Appwrite integration for backend services
+- User authentication (signup, login, logout)
+- Create, edit, delete, and view blog posts
+- Responsive design with Tailwind CSS
+- Rich text editor for posts
+- Protected routes for authenticated users
+- Post listing and individual post pages
+- State management with Redux Toolkit
+- Appwrite integration for backend services
 
-# Tech Stack
-React
-Vite
-Tailwind CSS
-Redux Toolkit
-Appwrite
-React Router
+## Tech Stack
+- React
+- Vite
+- Tailwind CSS
+- Redux Toolkit
+- Appwrite
+- React Router
 
-# Folder Structure
-components – Reusable UI components (Logo, AuthLayout, PostCard, etc.)
-pages – Page components (Home, Login, Signup, AddPost, EditPost, AllPosts, Post)
-appwrite – Appwrite service wrappers (auth, database)
-store – Redux store and slices
-assets – Images and static assets
+## Folder Structure
+- components – Reusable UI components (Logo, AuthLayout, PostCard, etc.)
+- pages – Page components (Home, Login, Signup, AddPost, EditPost, AllPosts, Post)
+- appwrite – Appwrite service wrappers (auth, database)
+- store – Redux store and slices
+- assets – Images and static assets
 
-# Contributing
+## Contributing
 Pull requests are welcome! For major changes, please open an issue first to discuss what you would like to change.
