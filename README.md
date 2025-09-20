@@ -34,6 +34,9 @@ A modern, responsive blog platform built with React and Vite. This project demon
 - Appwrite
 - React Router
 
+## Configure environment variables:
+- Copy .env.example to .env and fill in your Appwrite credentials.
+
 ## Folder Structure
 - components – Reusable UI components (Logo, AuthLayout, PostCard, etc.)
 - pages – Page components (Home, Login, Signup, AddPost, EditPost, AllPosts, Post)
