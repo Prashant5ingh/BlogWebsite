@@ -4,11 +4,11 @@ import { Button, Input, RTE, Select } from '../index';
 import dataService from "../../appwrite/config";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
-
+import { ErrorMessage } from "@hookform/error-message"
 
 function PostForm({ post }) { // user will send the "post" values after clicking edit option
 
-    const { register, handleSubmit, watch, setValue, control, getValues } = useForm({
+    const { register, handleSubmit, watch, setValue, control, getValues, formState: { errors } } = useForm({
         defaultValues: {
 
             title: post?.title || '',  // "post?.title" --> uses optional chaining to safely access the title property of post. If post is undefined or null, post?.title will return undefined instead of throwing an error.
@@ -28,33 +28,39 @@ function PostForm({ post }) { // user will send the "post" values after clicking
 
     // if user has submitted the form then data must have passed
     const submit = async (data) => {
-        if (post) { // if post then update the post
-            const file = data.image[0] ? dataService.uploadFile(data.image[0]) : null // file upload. image[0] --> 1st image
-            if (file) { // if post was there then we need to delete the old/previous image
-                dataService.deleteFile(post.featuredImage)  // featuredImage var in db
-            }
+        try {
+            if (post) { // if post then update the post
+                const file = data.image[0] ? dataService.uploadFile(data.image[0]) : null // file upload. image[0] --> 1st image
+                if (file) { // if post was there then we need to delete the old/previous image
+                    dataService.deleteFile(post.featuredImage)  // featuredImage var in db
+                }
 
-            const dbPost = await dataService.updatePost(post.$id, { ...data, featuredImage: file ? file.$id : undefined })  // overwrite only the featuredImage else others will have all values old and new.
+                const dbPost = await dataService.updatePost(post.$id, { ...data, featuredImage: file ? file.$id : undefined })  // overwrite only the featuredImage or slug value else others will have all values old and new.
 
-            if (dbPost) {
-                navigate(`/post/${dbPost.$id}`);
-            }
-        } else { // Nothing to update as user wants to create new form. So, upload the new file given by user.
-            const file = await dataService.uploadFile(data.image[0]); // For now we are not checking if file is there or not. For checking implement like above code.
-
-            if (file) {
-                const fileId = file.$id
-                data.featuredImage = fileId // updated the data feautured image property
-                const dbPost = await dataService.createPost({ // sending all other properties
-                    ...data,  // forms will never have userdata
-                    userId: userData.$id
-
-                })
                 if (dbPost) {
+                    alert("Post Updated")
                     navigate(`/post/${dbPost.$id}`);
                 }
+            } else { // Nothing to update as user wants to create new form. So, upload the new file given by user.
+                const file = await dataService.uploadFile(data.image[0]); // For now we are not checking if file is there or not. For checking implement like above code.
+
+                if (file) {
+                    const fileId = file.$id
+                    data.featuredImage = fileId // updated the data feautured image property
+                    const dbPost = await dataService.createPost({ // sending all other properties
+                        ...data,  // forms will never have userdata
+                        userId: userData.$id
+
+                    })
+                    if (dbPost) {
+                        navigate(`/post/${dbPost.$id}`);
+                    }
+                }
+
             }
 
+        } catch (error) {
+            console.log("Postform :: error", error);
         }
     }
 
@@ -78,7 +84,7 @@ function PostForm({ post }) { // user will send the "post" values after clicking
             }
         })
         return () => {
-            subscription.unsubscribe() // memory management for more optimization
+            subscription.unsubscribe(); // memory management for more optimization
         }
 
 
@@ -96,10 +102,16 @@ function PostForm({ post }) { // user will send the "post" values after clicking
                     label="Slug :"
                     placeholder="Slug"
                     className="mb-4"
-                    {...register("slug", { required: true })}
+                    {...register("slug", { required: "Slug value is required" })}
+
                     onInput={(e) => {
                         setValue("slug", slugTransform(e.currentTarget.value), { shouldValidate: true });
                     }}
+                />
+                <ErrorMessage
+                    errors={errors}
+                    name="slug"
+                    render={({ message }) => <p className="text-red-400">{message}</p>}
                 />
                 <RTE label="Content :" name="content" control={control} defaultValue={getValues("content")} />
             </div>

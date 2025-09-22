@@ -1,5 +1,5 @@
 import conf from "../conf/conf";
-import { Client, Account, ID } from "appwrite";
+import { Client, Account, ID,Permission,Role } from "appwrite";
 
 // Creating services with code improvement of appwrite auth. It makes this code compatible with other services like firbase or custom backend.
 export class AuthService {
@@ -53,7 +53,7 @@ export class AuthService {
         try {
             await this.account.deleteSessions();
         } catch (error) {
-            console.log("Appwrite serive :: logout :: error", error);
+            console.log("Appwrite service :: logout :: error", error);
         }
     }
 }

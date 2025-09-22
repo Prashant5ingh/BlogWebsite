@@ -6,13 +6,14 @@ import { useNavigate } from 'react-router-dom' // another one is useNavigation
 
 function Header() {
   const authStatus = useSelector((state) => state.auth.status)
+  const authdata = useSelector((state) => state.auth.userData)
   const navigate = useNavigate();
 
   const navItems = [ // it's array then looped on array. It contains object
     {
       name: 'Home',
       slug: '/', // where url is going can named as "url"
-      active: true
+      active: !authStatus,
     },
     {
       name: "Login",
@@ -67,11 +68,11 @@ function Header() {
             {/* Syntax --> If authStatus is true then only display logout btn */}
             {authStatus && (
               <li>
-                <LogoutBtn/>
+                <LogoutBtn />
               </li>
-            )} 
+            )}
           </ul>
-          
+
         </nav>
       </Container>
     </header>

@@ -28,13 +28,13 @@ export default function Protected({ children, authentication = true }) {  // by 
             navigate("/login")
         }
         else if (!authentication && authStatus !== authentication) {
-            navigate("/")
+            navigate("/all-posts")
         }
         setLoader(false)
 
     }, [authStatus, navigate, authentication])
     return (
-        loader ? <h1>Loading...</h1> : <>{children}</> 
+        loader ? <h1>Loading...</h1> : <>{children}</>
     )
 }
 

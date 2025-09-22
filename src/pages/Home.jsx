@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import dataService from "../appwrite/config";
 import { Container, PostCard } from '../components'
+import App from '../App'
 import { Link, useNavigate } from 'react-router-dom'
 
 function Home() {
     const navigate = useNavigate()
     const [posts, setPosts] = useState([])
     useEffect(() => {
+
         dataService.getPosts() // Here no query is passed or accepted. So, no need to add "[]" in "()".
             // .then((posts) => setPosts(posts))
             .then((posts) => {
@@ -16,12 +18,12 @@ function Home() {
             })
     }, [])
 
-    if (posts.length === 0) { // No length of post or no post then login
+    if (posts.length !== 0) { // No length of post or no post then login
         return (
             <div className="w-full py-8 mt-4 text-center">
                 <Container>
                     <div className="flex flex-wrap">
-                        <div className="p-2 w-full">
+                        <div className="w-full">
                             {/* <h1 className="text-2xl font-bold hover:text-gray-500">
                                 Login to read posts
                             </h1> */}
@@ -43,19 +45,19 @@ function Home() {
                             </section>
 
                             {/* Blog Posts Grid */}
-                            <main className="container mx-auto px-4 py-12">
+                            <main className="container mx-auto px-4 mt-8">
                                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
                                     {/* Example Post Card */}
-                                    <div className="bg-white rounded-2xl shadow-md p-4 flex justify-center border border-blue-300 hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out">
-                                        <img src="https://img.icons8.com/?size=100&id=cjsh58euBD9i&format=png&color=000000" alt="Post" className="rounded-4xl w-30 h-30" />
-                                        <div className='block'>
-                                            <h3 className="text-xl font-bold mb-2">Post h Title</h3>
-                                            <p className="text-gray-700 mb-4">Short description of the blog post goes here. Catch the reader's attention!</p>
-                                            <Link to="/login" className="text-blue-600 hover:underline font-semibold">Login to Read More</Link>
+                                    {posts.map((post) => (
+                                        <div key={post.$id} className="bg-white rounded-2xl shadow-md p-4 block justify-center border border-blue-300 hover:scale-105 hover:shadow-lg transition-all duration-300 ease-in-out">
+
+                                            {/* All post will be transmitted individually using the code provided below. */}
+                                            <PostCard {...post} />
+                                            <Link to="/login" className="text-gray-800 hover:underline font-semibold">Login to Read More</Link>
+                                            {/* <PostCard post={post} /> only single post will be sent or displayed */}
+
                                         </div>
-                                    </div>
-                                    {/* Repeat Post Card for more posts */}
-                                    {/* ... */}
+                                    ))}
                                 </div>
                             </main>
                         </div>
@@ -64,21 +66,21 @@ function Home() {
             </div>
         )
     }
-    return (
-        <div className='w-full py-8'>
-            <Container>
-                <div className='flex flex-wrap'>
-                    {posts.map((post) => (
-                        <div key={post.$id} className='p-2 w-1/4'>
-                            {/* All post will be transmitted individually using the code provided below. */}
-                            <PostCard {...post} />
-                            {/* <PostCard post={post} /> only single post will be sent or displayed */}
-                        </div>
-                    ))}
-                </div>
-            </Container>
-        </div>
-    )
+    // return (
+    //     <div className='w-full py-8'>
+    //         <Container>
+    //             <div className='flex flex-wrap'>
+    //                 {posts.map((post) => (
+    //                     <div key={post.$id} className='p-2 w-1/4'>
+    //                         {/* All post will be transmitted individually using the code provided below. */}
+    //                         <PostCard {...post} />
+    //                         {/* <PostCard post={post} /> only single post will be sent or displayed */}
+    //                     </div>
+    //                 ))}
+    //             </div>
+    //         </Container>
+    //     </div>
+    // )
 }
 
 export default Home

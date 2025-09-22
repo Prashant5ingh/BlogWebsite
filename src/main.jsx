@@ -24,7 +24,11 @@ const router = createBrowserRouter([
     children: [
       {
         path: "/",
-        element: <Home/>,
+        element: (  // "()" wrapper to send multiple element or a div section
+          <AuthLayout authentication={false}>
+            <Home/>
+          </AuthLayout>
+        ),
       },
       {
         path: "/login",
@@ -72,7 +76,12 @@ const router = createBrowserRouter([
       },
       {
         path: "/post/:slug",
-        element: <Post />,
+        element: (
+          <AuthLayout authentication>
+            {" "}
+            <Post />
+          </AuthLayout>
+        ),
       },
     ],
   },

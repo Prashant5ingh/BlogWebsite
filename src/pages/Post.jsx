@@ -16,8 +16,10 @@ function Post() {
 
     const isAuthor = post && userData ? post.userId === userData.$id : false;
 
+
     useEffect(() => {
         if (slug) {
+            isAuthor
             dataService.getPost(slug)
                 .then((post) => {
                     if (post) setPost(post);
@@ -63,7 +65,7 @@ function Post() {
                     <h1 className="text-2xl font-bold">{post.title}</h1>
                 </div>
                 <div className="browser-css">
-                    {parse(post.content)} 
+                    {parse(post.content)}
                 </div>
             </Container>
         </div>

@@ -21,8 +21,12 @@ function Login() {
       const session = await authService.login(data)  // it gives a resposnse as session. If session is there means user is logged in else not
       if (session) {
         const userData = await authService.getCurrentUser();
-        if (userData) dispatch(authLogin(userData));
-        navigate("/")  // navigate to root after login. Link --> needs to be clicked and navigate--> programmatically (directly) sends to that url
+        if (userData) {
+          dispatch(authLogin({ userData }));
+        }
+        // navigate to root after login. Link --> needs to be clicked and navigate--> programmatically (directly) sends to that url
+        // navigate("/all-posts")
+
       }
     } catch (error) {
       setError(error.message)
