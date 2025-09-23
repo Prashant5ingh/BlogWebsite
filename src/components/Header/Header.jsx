@@ -58,7 +58,7 @@ function Header() {
                   {/* useNavigate (pass url to navigate) works same as Link both are from react router */}
                   <button
                     onClick={() => navigate(item.slug)}
-                    className='inline-bock px-6 py-2 duration-200 hover:bg-blue-100 rounded-full'
+                    className='inline-bock px-6 py-2 duration-200 hover:bg-blue-100 rounded-full cursor-pointer'
                   >{item.name}</button>
                 </li>
               ) : null
